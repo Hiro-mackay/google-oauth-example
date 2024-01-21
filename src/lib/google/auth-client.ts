@@ -4,7 +4,9 @@ const CLIENT_ID = process.env.GOOGLE_API_CLIENT_ID || "";
 const CLIENT_SECRET = process.env.GOOGLE_API_CLIENT_SECRET || "";
 
 export const REDIRECT_URI =
-  "https://google-oauth-example.vercel.app/api/auth/google-oauth/callback";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/api/auth/google-oauth/callback"
+    : "https://google-oauth-example.vercel.app/api/auth/google-oauth/callback";
 
 const OPTIONS = {
   clientId: CLIENT_ID,
