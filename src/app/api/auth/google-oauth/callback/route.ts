@@ -29,5 +29,5 @@ export async function GET(req: NextRequest) {
     secure: true,
   });
 
-  redirect(originalUrl);
+  redirect(decodeURIComponent(originalUrl));
 }
