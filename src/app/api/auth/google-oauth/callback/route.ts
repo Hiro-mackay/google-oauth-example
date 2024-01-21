@@ -20,6 +20,8 @@ export async function GET(req: NextRequest) {
 
   const { tokens } = await oauth2Client.getToken(code);
 
+  oauth2Client.setCredentials(tokens);
+
   cookies().set({
     name: "google-oauth2-tokens",
     value: JSON.stringify(tokens),

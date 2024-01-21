@@ -27,5 +27,7 @@ export async function GET(req: NextRequest) {
     redirect_uri: redirectUri,
   });
 
+  return Response.json({ url });
+
   redirect(url);
 }
