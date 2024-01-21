@@ -8,16 +8,13 @@ export default function Home() {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log(pathname);
   const oauthRedirect = () => {
     router.push(`/api/auth/google-oauth/?originalUrl=${pathname}`);
   };
 
   return (
-    <main className="min-h-screen justify-between p-10">
-      <a href="/welcome" className="text-blue-500">
-        /welcome
-      </a>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <Button onClick={oauthRedirect}>Google OAuth</Button>
     </main>
   );
 }
