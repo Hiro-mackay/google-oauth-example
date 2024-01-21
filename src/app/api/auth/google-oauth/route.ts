@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
   cookies().set("oauth2-redirect-original-url", originalUrl);
 
-  const oauth2Client = createOAuth2Client();
+  const oauth2Client = createOAuth2Client({ redirectUri });
 
   const url = oauth2Client.generateAuthUrl({
     access_type: "offline",
