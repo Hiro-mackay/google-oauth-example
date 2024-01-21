@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   cookies().set({
     name: "google-oauth2-tokens",
     value: JSON.stringify(tokens),
-    maxAge: 60 * 60 * 24 * 30, // 1 year
+    maxAge: 60 * 60 * 24 * 30, // 一ヶ月
     path: "/",
     sameSite: "lax",
     secure: true,
