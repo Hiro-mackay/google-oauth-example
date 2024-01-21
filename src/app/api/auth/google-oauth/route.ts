@@ -8,6 +8,9 @@ const scopes = [
   "https://www.googleapis.com/auth/spreadsheets.readonly",
 ];
 
+const redirectUri =
+  "https://google-oauth-example.vercel.app/api/auth/google-oauth/callback";
+
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const originalUrl = searchParams.get("originalUrl") || "/";
@@ -19,6 +22,7 @@ export async function GET(req: NextRequest) {
   const url = oauth2Client.generateAuthUrl({
     access_type: "offline",
     scope: scopes,
+    redirect_uri: redirectUri,
   });
 
   redirect(url);
