@@ -1,7 +1,9 @@
 import { DriveLogo } from "@/components/logo/Drive";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createOAuth2Client, getOAuthTokenCookie } from "@/lib/google/oauth";
 import { google } from "googleapis";
+import { Download } from "lucide-react";
 import Link from "next/link";
 
 async function getDriveFiles() {
@@ -14,7 +16,7 @@ async function getDriveFiles() {
 
   const files = await google.drive({ version: "v3", auth }).files.list({
     pageSize: 10,
-    fields: "files(id, name)",
+    fields: "files(id, name, webContentLink)",
   });
 
   return files.data;
@@ -37,13 +39,27 @@ export default async function Home() {
       <CardContent className="flex flex-col divide-y">
         {data?.files?.length ? (
           data.files.map((file) => (
-            <Link
-              href="#"
+            <div
               key={file.id}
-              className="text-blue-500 p-5 hover:underline"
+              className="flex justify-between items-center p-4"
             >
-              {file.name}
-            </Link>
+              <Link
+                href={`https://drive.google.com/file/d/${file.id}/view?usp=drive_link`}
+                className="text-blue-500 hover:underline"
+              >
+                {file.name}
+              </Link>
+
+              <Link href={file.webContentLink || ""} passHref>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={!file.webContentLink}
+                >
+                  <Download />
+                </Button>
+              </Link>
+            </div>
           ))
         ) : (
           <p className="w-full p-10 text-center">No data.</p>
