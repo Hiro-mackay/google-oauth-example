@@ -1,4 +1,4 @@
-import { createOAuth2Client } from "@/lib/google/auth-client";
+import { createOAuth2Client, setOAuthTokenCookie } from "@/lib/google/oauth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
@@ -19,14 +19,7 @@ export async function GET(req: NextRequest) {
 
   oauth2Client.setCredentials(tokens);
 
-  cookies().set({
-    name: "google-oauth2-tokens",
-    value: JSON.stringify(tokens),
-    maxAge: 60 * 60 * 24 * 30, // 一ヶ月
-    path: "/",
-    sameSite: "lax",
-    secure: true,
-  });
+  setOAuthTokenCookie(tokens);
 
-  redirect("/");
+  redirect("/drive");
 }

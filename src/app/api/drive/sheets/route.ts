@@ -1,4 +1,4 @@
-import { createOAuth2Client } from "@/lib/google/auth-client";
+import { createOAuth2Client } from "@/lib/google/oauth";
 import { google } from "googleapis";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
       status: 400,
     });
   }
-
-  // const auth = createOAuth2Client();
 
   const credentials = cookies().get("google-oauth2-tokens")?.value;
 

@@ -1,4 +1,4 @@
-import { createOAuth2Client } from "@/lib/google/auth-client";
+import { createOAuth2Client } from "@/lib/google/oauth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
