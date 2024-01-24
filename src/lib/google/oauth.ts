@@ -2,6 +2,8 @@ import { google, oauth2_v2 } from "googleapis";
 import { Credentials } from "google-auth-library/build/src/auth/credentials";
 import { cookies } from "next/headers";
 
+export const COOKIE_TOKEN_NAME = "google-oauth2-tokens";
+
 export const REDIRECT_URI =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api/auth/google-oauth/callback"
@@ -24,8 +26,6 @@ export function createOAuth2Client(options?: {
   };
   return new google.auth.OAuth2(clientId, clientSecret, redirectUri);
 }
-
-export const COOKIE_TOKEN_NAME = "google-oauth2-tokens";
 
 export function setOAuthTokenCookie(credentials: Credentials) {
   return cookies().set({
