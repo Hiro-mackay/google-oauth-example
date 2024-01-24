@@ -1,4 +1,5 @@
 import { createOAuth2Client, setOAuthTokenCookie } from "@/lib/google/oauth";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 
@@ -18,5 +19,9 @@ export async function GET(req: NextRequest) {
 
   setOAuthTokenCookie(tokens);
 
-  redirect("/drive");
+  const originalUrl =
+    cookies().get("oauth2-redirect-original-url")?.value || "/";
+  cookies().delete("oauth2-redirect-original-url");
+
+  redirect(decodeURIComponent(originalUrl));
 }
