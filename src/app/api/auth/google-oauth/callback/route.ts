@@ -9,9 +9,6 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const code = searchParams.get("code");
 
-  const originalUrl =
-    cookies().get("oauth2-redirect-original-url")?.value || "/";
-
   if (!code) {
     return new Response(`Missing code query parameter`, {
       status: 400,
@@ -31,5 +28,5 @@ export async function GET(req: NextRequest) {
     secure: true,
   });
 
-  redirect(decodeURIComponent(originalUrl));
+  redirect("/");
 }

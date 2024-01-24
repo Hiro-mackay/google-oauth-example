@@ -3,10 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 
-const scopes = [
-  "https://www.googleapis.com/auth/drive.readonly",
-  "https://www.googleapis.com/auth/spreadsheets.readonly",
-];
+const scopes = ["https://www.googleapis.com/auth/drive.readonly"];
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;

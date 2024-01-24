@@ -1,61 +1,24 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-
+import { DriveLogo } from "@/components/logo/Drive";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { usePathname } from "next/navigation";
 
 export default function Home() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const pathname = usePathname();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+    <main className="min-h-screen flex justify-center items-start p-10">
+      <Card className="max-w-[800px] w-full">
+        <CardHeader>
+          <div className="flex justify-between">
+            <CardTitle className="flex gap-3 items-center">
+              <DriveLogo className="text-3xl" />
+              Google Drive
+            </CardTitle>
+          </div>
+        </CardHeader>
+      </Card>
     </main>
   );
 }

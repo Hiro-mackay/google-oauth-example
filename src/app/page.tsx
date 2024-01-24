@@ -1,19 +1,16 @@
-"use client";
+import { DriveLogo } from "@/components/logo/Drive";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen justify-between p-10">
-      <div className="flex flex-col gap-2">
-        <a href="/welcome" className="text-blue-500">
-          /welcome
-        </a>
-        <a href="/drive" className="text-blue-500">
-          /drive
-        </a>
-        <a href="/drive/spreadsheet" className="text-blue-500 ml-5">
-          /spreadsheet
-        </a>
-      </div>
+    <main className="min-h-screen flex justify-center items-center p-10">
+      <Link href={`/api/auth/google-oauth`}>
+        <Button>
+          <DriveLogo className="mr-2 text-xl" />
+          <p>Drive 連携</p>
+        </Button>
+      </Link>
     </main>
   );
 }
