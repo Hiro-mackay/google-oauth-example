@@ -2,9 +2,9 @@ import { DriveLogo } from "@/components/logo/Drive";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createOAuth2Client, getOAuthTokenCookie } from "@/lib/google/oauth";
 import { google } from "googleapis";
+import Link from "next/link";
 
 async function getDriveFiles() {
-  "use server";
   const credentials = getOAuthTokenCookie();
 
   if (!credentials) return undefined;
@@ -21,11 +21,7 @@ async function getDriveFiles() {
 }
 
 export default async function Home() {
-  const files = await getDriveFiles();
-
-  console.log(files);
-
-  console.log("drive");
+  const data = await getDriveFiles();
 
   return (
     <Card className="max-w-[800px] w-full">
@@ -38,7 +34,21 @@ export default async function Home() {
         </div>
       </CardHeader>
 
-      <CardContent></CardContent>
+      <CardContent className="flex flex-col divide-y">
+        {data?.files?.length ? (
+          data.files.map((file) => (
+            <Link
+              href="#"
+              key={file.id}
+              className="text-blue-500 p-5 hover:underline"
+            >
+              {file.name}
+            </Link>
+          ))
+        ) : (
+          <p className="w-full p-10 text-center">No data.</p>
+        )}
+      </CardContent>
     </Card>
   );
 }

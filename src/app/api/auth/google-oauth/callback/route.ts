@@ -1,5 +1,4 @@
 import { createOAuth2Client, setOAuthTokenCookie } from "@/lib/google/oauth";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 
@@ -10,14 +9,12 @@ export async function GET(req: NextRequest) {
   const code = searchParams.get("code");
 
   if (!code) {
-    return new Response(`Missing code query parameter`, {
+    return new Response(`Missing query parameter`, {
       status: 400,
     });
   }
 
   const { tokens } = await oauth2Client.getToken(code);
-
-  oauth2Client.setCredentials(tokens);
 
   setOAuthTokenCookie(tokens);
 
